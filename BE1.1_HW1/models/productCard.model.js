@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const productCardSchema = new mongoose.Schema({
   title: String,
+  productImgURL: String,
   starRating: Number,
   ratingCount: Number,
   reviewsCount: Number,
