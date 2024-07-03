@@ -24,3 +24,7 @@ const productCardScheme = new mongoose.Scheme({
     },
   ],
 });
+
+const ProductCard = mongoose.model("ProductCard", ProductCard);
+
+module.exports = ProductCard;
