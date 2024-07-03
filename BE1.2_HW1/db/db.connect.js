@@ -9,10 +9,7 @@ const mongoURI =
 
 const initializeDatabase = async () => {
   try {
-    const connection = await mongoose.connect(mongoURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    const connection = await mongoose.connect(mongoURI);
 
     if (connection) {
       console.log("Connected to MongoDB");
