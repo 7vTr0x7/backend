@@ -2,62 +2,34 @@ const mongoose = require("mongoose");
 
 const movieSchema = new mongoose.Schema(
   {
-    title: {
-      type: String,
+    title: { type: String, required: true },
+    releaseYear: { type: Number, required: true },
+    genre: {
+      type: [String],
+      enum: [
+        "Action",
+        "Comedy",
+        "Drama",
+        "Thriller",
+        "Sci-Fi",
+        "Horror",
+        "Fantasy",
+        "Sports",
+        "Musical",
+        "Romance",
+        "other",
+      ],
       required: true,
     },
-    releaseYear: {
-      type: Number,
-      required: true,
-    },
-    genre: [
-      {
-        type: String,
-        enum: [
-          "Action",
-          "Comedy",
-          "Drama",
-          "Thriller",
-          "Sci-Fi",
-          "Horror",
-          "Fantasy",
-          "Sports",
-          "Musical",
-          "other",
-        ],
-      },
-    ],
-    director: {
-      type: String,
-      required: true,
-    },
-    actors: [
-      {
-        type: String,
-      },
-    ],
-    country: {
-      type: String,
-      default: "India",
-    },
-    rating: {
-      type: String,
-      min: 0,
-      max: 10,
-      default: 0,
-    },
-    plot: {
-      type: String,
-    },
-    awards: {
-      type: String,
-    },
-    posterURL: {
-      type: String,
-    },
-    trailerURL: {
-      type: String,
-    },
+    director: { type: String, required: true },
+    actors: [String],
+    language: { type: String, required: true },
+    country: { type: String, required: true },
+    rating: { type: Number, required: true },
+    plot: { type: String, required: true },
+    awards: [String],
+    posterUrl: { type: String },
+    trailerUrl: { type: String },
   },
   { timestamps: true }
 );
