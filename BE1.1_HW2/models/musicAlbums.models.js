@@ -51,3 +51,7 @@ const musicAlbumsSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+const MusicAlbums = mongoose.model("MusicAlbums", musicAlbumsSchema);
+
+module.exports = MusicAlbums;
