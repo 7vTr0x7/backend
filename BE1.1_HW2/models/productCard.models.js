@@ -16,4 +16,11 @@ const productCardScheme = new mongoose.Scheme({
     },
   ],
   offersLength: { type: Number },
+  warranty: String,
+  connectivity: Boolean,
+  variant: [
+    {
+      type: String,
+    },
+  ],
 });
