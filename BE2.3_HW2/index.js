@@ -170,3 +170,19 @@ const updateHotelCheckoutTime = async (hotelId, dataToUpdate) => {
 };
 
 // updateHotelCheckoutTime("66867e2c571392433699132b", { checkOutTime: "11 AM" });
+
+const updateHotelRating = async (hotelName, dataToUpdate) => {
+  try {
+    const updatedHotel = await Hotels.findOneAndUpdate(
+      hotelName,
+      dataToUpdate,
+      { new: true }
+    );
+
+    console.log("Updated rating:", updatedHotel);
+  } catch (error) {
+    console.log("Error occurred while updating rating", error);
+  }
+};
+
+updateHotelRating({ name: "Sunset Resort" }, { rating: 4.2 });
