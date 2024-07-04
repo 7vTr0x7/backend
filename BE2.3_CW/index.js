@@ -62,4 +62,35 @@ const readMoviesByDirector = async (movieDirector) => {
   }
 };
 
-readMoviesByDirector("Rajkumar Hirani");
+// readMoviesByDirector("Rajkumar Hirani");
+
+const updateMovie = async (movieId, dataToUpdate) => {
+  try {
+    const updatedMovie = await Movie.findByIdAndUpdate(movieId, dataToUpdate, {
+      new: true,
+    });
+
+    console.log("Updated Movie:", updatedMovie);
+  } catch (error) {
+    console.log("Error occurred while updating data", error);
+  }
+};
+
+// updateMovie("668540998aa9a3c6878dfc5e", { releaseYear: 1996 });
+
+const updateMovieDetails = async (movieName, dataToUpdate) => {
+  try {
+    const updatedMovie = await Movie.findOneAndUpdate(
+      { title: movieName },
+      dataToUpdate,
+      {
+        new: true,
+      }
+    );
+    console.log("Updated Data:", updatedMovie);
+  } catch (error) {
+    console.log("Error occurred while changing data", error);
+  }
+};
+
+updateMovieDetails("Dilwale Dulhania Le Jayenge", { releaseYear: 1995 });
