@@ -4,33 +4,29 @@ const Movie = require("./models/movies.models");
 
 initializeDatabase();
 
-const jsonData = fs.readFileSync("d:/backend/BE1.2_CW/movies.json");
+const newMovie = {
+  title: "New Movie",
+  releaseYear: 2023,
+  genre: ["Drama"],
+  director: "Aditya Roy Chopra",
+  actors: ["Actor1", "Actor2"],
+  language: "Hindi",
+  country: "India",
+  rating: 6.1,
+  plot: "A young man and woman fall in love on a Australia trip.",
+  awards: "IFA Filmfare Awards",
+  posterUrl: "https://example.com/new-poster1.jpg",
+  trailerUrl: "https://example.com/new-trailer1.mp4",
+};
 
-const moviesData = JSON.parse(jsonData);
-
-const seedData = () => {
+const createMovie = async (movie) => {
   try {
-    for (const movie of moviesData) {
-      const newMovie = new Movie({
-        title: movie.title,
-        releaseYear: movie.releaseYear,
-        genre: movie.genre,
-        director: movie.director,
-        actors: movie.actors,
-        language: movie.language,
-        country: movie.country,
-        rating: movie.rating,
-        plot: movie.plot,
-        awards: movie.awards,
-        posterUrl: movie.posterUrl,
-        trailerUrl: movie.trailerUrl,
-      });
-      newMovie.save();
-      console.log("Movie Data: ", newMovie.title);
-    }
+    const newMovie = new Movie(movie);
+    const savedMovie = await newMovie.save();
+    console.log("Movie:", savedMovie);
   } catch (error) {
-    console.log(" Error seeding the data ", error);
+    throw error;
   }
 };
 
-seedData();
+createMovie(newMovie);

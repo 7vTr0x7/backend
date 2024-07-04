@@ -1,18 +1,12 @@
-require("dotenv").config();
 const mongoose = require("mongoose");
 
-const { MongoClient } = require("mongodb");
-
 const mongoURI =
-  process.env.MONGODB_URL ||
+  process.env.MONGODB ||
   "mongodb+srv://neoGStudent:vTroxGAMING@neog.vf9x0bo.mongodb.net/?retryWrites=true&w=majority&appName=neoG";
 
 const initializeDatabase = async () => {
   try {
-    const connection = await mongoose.connect(mongoURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    const connection = await mongoose.connect(mongoURI);
 
     if (connection) {
       console.log("Connected to MongoDB");
