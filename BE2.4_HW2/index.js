@@ -198,7 +198,31 @@ const updateHotelPhoneNumber = async (number, dataToUpdate) => {
   }
 };
 
-updateHotelPhoneNumber(
-  { phoneNumber: "+1299655890" },
-  { phoneNumber: "+1997687392" }
-);
+// updateHotelPhoneNumber(
+//   { phoneNumber: "+1299655890" },
+//   { phoneNumber: "+1997687392" }
+// );
+
+const deleteHotelById = async (id) => {
+  try {
+    const deletedHotel = await Hotels.findByIdAndDelete(id);
+    console.log("Deleted Hotel:", deletedHotel);
+  } catch (error) {
+    console.log("Error occurred while deleting hotel by id", error);
+  }
+};
+
+// deleteHotelById("66864cbfcfe961190085d95b");
+
+const deleteHotelByPhoneNumber = async (number) => {
+  try {
+    const deletedHotel = await Hotels.findOneAndDelete({
+      phoneNumber: number,
+    });
+    console.log("Deleted Hotel:", deletedHotel);
+  } catch (error) {
+    console.log("Error occurred while deleting hotel by phone number", error);
+  }
+};
+
+deleteHotelByPhoneNumber("+1234567890");
