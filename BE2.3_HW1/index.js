@@ -127,12 +127,12 @@ const readAllResByCuisine = async (cuisine) => {
 
 // readAllResByCuisine("Italian");
 
-const updateRestaurant = async (resId, dataToUpdate) => {
+const updateRestaurantRating = async (resId, dataToUpdate) => {
   try {
     const updatedRes = await Restaurants.findByIdAndUpdate(
       resId,
       dataToUpdate,
-      {new:true}
+      { new: true }
     );
     console.log("Updated Restaurant:", updatedRes);
   } catch (error) {
@@ -140,4 +140,37 @@ const updateRestaurant = async (resId, dataToUpdate) => {
   }
 };
 
-updateRestaurant("668671cdea70ab19f9d23f1f", { rating: 4.1 });
+// updateRestaurantRating("668671cdea70ab19f9d23f1f", { rating: 4.1 });
+
+const updateRestaurantName = async (resName, dataToUpdate) => {
+  try {
+    const updatedRes = await Restaurants.findOneAndUpdate(
+      resName,
+      dataToUpdate,
+      { new: true }
+    );
+    console.log("Updated Restaurant Name:", updatedRes);
+  } catch (error) {
+    console.log("Error occurred while changing restaurant name", error);
+  }
+};
+
+// updateRestaurantName({ name: "Somi" }, { name: "Som Sarovar" });
+
+const updateResByNumber = async (resNumber, dataToUpdate) => {
+  try {
+    const updatedRes = await Restaurants.findOneAndUpdate(
+      resNumber,
+      dataToUpdate,
+      { new: true }
+    );
+    console.log("Updated Delivery Option", updatedRes);
+  } catch (error) {
+    console.log("Error occurred while updating delivery option", error);
+  }
+};
+
+updateResByNumber(
+  { phoneNumber: "+1288997392" },
+  { isDeliveryAvailable: true }
+);
