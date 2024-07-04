@@ -185,4 +185,20 @@ const updateHotelRating = async (hotelName, dataToUpdate) => {
   }
 };
 
-updateHotelRating({ name: "Sunset Resort" }, { rating: 4.2 });
+// updateHotelRating({ name: "Sunset Resort" }, { rating: 4.2 });
+
+const updateHotelPhoneNumber = async (number, dataToUpdate) => {
+  try {
+    const updatedHotel = await Hotels.findOneAndUpdate(number, dataToUpdate, {
+      new: true,
+    });
+    console.log("Updated Hotel Phone Number:", updatedHotel);
+  } catch (error) {
+    console.log("Error occurred while updating phone number", error);
+  }
+};
+
+updateHotelPhoneNumber(
+  { phoneNumber: "+1299655890" },
+  { phoneNumber: "+1997687392" }
+);
