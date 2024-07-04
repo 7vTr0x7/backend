@@ -22,7 +22,7 @@ const newRestaurant = {
 const createRes = async (newRes) => {
   try {
     const res = new Restaurants(newRes);
-    const savedRes = res.save();
+    const savedRes = await res.save();
     console.log("Restaurant Data:", savedRes);
   } catch (error) {
     throw error;
