@@ -17,8 +17,7 @@ const seedData = () => {
         year: car.year,
         bodyStyle: car.bodyStyle,
         fuelType: car.fuelType,
-        transmission: car,
-        transmission,
+        transmission: car.transmission,
         engine: car.engine,
         mileage: car.mileage,
         color: car.color,
@@ -28,6 +27,9 @@ const seedData = () => {
         photos: car.photos,
         inMarket: car.isMarket,
       });
+
+      newCar.save();
+      console.log("Car Data:", newCar.brand);
     }
   } catch (error) {
     console.log("Error seeding data", error);
