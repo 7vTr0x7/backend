@@ -49,6 +49,7 @@ const carSchema = new mongoose.Schema(
     condition: {
       type: String,
       enum: ["New", "Used"],
+      required: true,
     },
     description: {
       type: String,
