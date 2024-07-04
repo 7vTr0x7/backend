@@ -101,4 +101,15 @@ const readAllHotelsWithParking = async () => {
   }
 };
 
-readAllHotelsWithParking();
+// readAllHotelsWithParking();
+
+const readAllHotelsWithRes = async () => {
+  try {
+    const allHotelsWithRes = await Hotels.find({ isRestaurantAvailable: true });
+    console.log("All Hotels With Restaurants:", allHotelsWithRes);
+  } catch (error) {
+    throw error;
+  }
+};
+
+readAllHotelsWithRes();
