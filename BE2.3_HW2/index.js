@@ -156,4 +156,17 @@ const readHotelByPhoneNumber = async (number) => {
   }
 };
 
-readHotelByPhoneNumber("+1299655890");
+// readHotelByPhoneNumber("+1299655890");
+
+const updateHotelCheckoutTime = async (hotelId, dataToUpdate) => {
+  try {
+    const updatedHotel = await Hotels.findByIdAndUpdate(hotelId, dataToUpdate, {
+      new: true,
+    });
+    console.log("Updated Checkout time:", updatedHotel);
+  } catch (error) {
+    console.log("Error occurred while updating checkout time", error);
+  }
+};
+
+// updateHotelCheckoutTime("66867e2c571392433699132b", { checkOutTime: "11 AM" });
