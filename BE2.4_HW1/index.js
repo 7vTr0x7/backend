@@ -75,7 +75,7 @@ const readRestaurantsByName = async (resName) => {
   }
 };
 
-readRestaurantsByName("New Restaurant");
+// readRestaurantsByName("New Restaurant");
 
 const readAllRestaurantByReservation = async () => {
   try {
@@ -170,7 +170,29 @@ const updateResByNumber = async (resNumber, dataToUpdate) => {
   }
 };
 
-updateResByNumber(
-  { phoneNumber: "+1288997392" },
-  { isDeliveryAvailable: true }
-);
+// updateResByNumber(
+//   { phoneNumber: "+1288997392" },
+//   { isDeliveryAvailable: true }
+// );
+
+const deleteRestaurantById = async (resId) => {
+  try {
+    const deletedRes = await Restaurants.findByIdAndDelete(resId);
+    console.log("This Restaurant was deleted", deletedRes);
+  } catch (error) {
+    console.log("Error occurred while deleting restaurant by name", error);
+  }
+};
+
+// deleteRestaurantById("668671aebb978c021f3642fa");
+
+const deleteRestaurantByName = async (name) => {
+  try {
+    const deletedRes = await Restaurants.findOneAndDelete({ name: name });
+    console.log("Deleted Restaurant:", deletedRes);
+  } catch (error) {
+    console.log("Error occurred while deleting restaurant by name", error);
+  }
+};
+
+deleteRestaurantByName("Yo China");
