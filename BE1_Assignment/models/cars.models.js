@@ -61,6 +61,7 @@ const carSchema = new mongoose.Schema(
     ],
     inMarket: {
       type: Boolean,
+      default: true,
     },
   },
   { timestamps: true }
