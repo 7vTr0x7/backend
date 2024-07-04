@@ -1,4 +1,5 @@
 const { initializeDatabase } = require("./db/db.connect");
+const Restaurants = require("./models/restaurants.models");
 
 initializeDatabase();
 
@@ -19,11 +20,13 @@ const newRestaurant = {
 };
 
 const createRes = async (newRes) => {
-    try {
-        const res = new 
-    } catch (error) {
-        throw error
-    }
-}
+  try {
+    const res = new Restaurants(newRes);
+    const savedRes = res.save();
+    console.log("Restaurant Data:", savedRes);
+  } catch (error) {
+    throw error;
+  }
+};
 
-createRes(newRestaurant)
+createRes(newRestaurant);
