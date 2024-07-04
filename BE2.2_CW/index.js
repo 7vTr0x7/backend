@@ -29,4 +29,37 @@ const createMovie = async (movie) => {
   }
 };
 
-createMovie(newMovie);
+// createMovie(newMovie);
+
+const readMovieByTitle = async (movieName) => {
+  try {
+    const movieByTitle = await Movie.findOne({ title: movieName });
+    console.log(movieByTitle);
+  } catch (error) {
+    throw error;
+  }
+};
+
+// readMovieByTitle("Lagaan");
+
+const readAllMovies = async () => {
+  try {
+    const allMovies = await Movie.find();
+    console.log(allMovies);
+  } catch (error) {
+    throw error;
+  }
+};
+
+// readAllMovies();
+
+const readMoviesByDirector = async (movieDirector) => {
+  try {
+    const moviesByDirector = await Movie.find({ director: movieDirector });
+    console.log(moviesByDirector);
+  } catch (error) {
+    throw error;
+  }
+};
+
+readMoviesByDirector("Rajkumar Hirani");
