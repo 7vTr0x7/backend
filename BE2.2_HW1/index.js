@@ -64,4 +64,43 @@ const readAllRestaurants = async () => {
   }
 };
 
-readAllRestaurants();
+// readAllRestaurants();
+
+const readRestaurantsByName = async (resName) => {
+  try {
+    const restaurantByName = await Restaurants.findOne({ name: resName });
+    console.log("Restaurant By Name:", restaurantByName);
+  } catch (error) {
+    throw error;
+  }
+};
+
+readRestaurantsByName("New Restaurant");
+
+const readAllRestaurantByReservation = async () => {
+  try {
+    const allResWithReservation = await Restaurants.find({
+      reservationsNeeded: true,
+    });
+
+    console.log("All Restaurants with Reservation:", allResWithReservation);
+  } catch (error) {
+    throw error;
+  }
+};
+
+// readAllRestaurantByReservation();
+
+const readAllResWithDelivery = async () => {
+  try {
+    const allResWithDelivery = await Restaurants.find({
+      isDeliveryAvailable: true,
+    });
+
+    console.log("All Restaurants with Delivery:", allResWithDelivery);
+  } catch (error) {
+    throw error;
+  }
+};
+
+readAllResWithDelivery();
