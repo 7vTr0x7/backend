@@ -112,4 +112,48 @@ const readAllHotelsWithRes = async () => {
   }
 };
 
-readAllHotelsWithRes();
+// readAllHotelsWithRes();
+
+const allHotelsByCategory = async (category) => {
+  try {
+    const allHotelsByCategory = await Hotels.find({ category: category });
+    console.log("All Hotels By Category:", allHotelsByCategory);
+  } catch (error) {
+    throw error;
+  }
+};
+
+// allHotelsByCategory("Mid-Range");
+
+const readAllHotelByPriceRange = async (priceRange) => {
+  try {
+    const allHotelsByPrice = await Hotels.find({ priceRange: priceRange });
+    console.log("All Hotels By Price Range:", allHotelsByPrice);
+  } catch (error) {
+    throw error;
+  }
+};
+
+// readAllHotelByPriceRange("$$$$ (61+)");
+
+const readHotelsWithRating = async (rating) => {
+  try {
+    const hotelWithRating = await Hotels.findOne({ rating: rating });
+    console.log("Hotel With Rating:", hotelWithRating);
+  } catch (error) {
+    throw error;
+  }
+};
+
+// readHotelsWithRating(4.0);
+
+const readHotelByPhoneNumber = async (number) => {
+  try {
+    const hotelByNumber = await Hotels.findOne({ phoneNumber: number });
+    console.log("Hotel By Number:", hotelByNumber);
+  } catch (error) {
+    throw error;
+  }
+};
+
+readHotelByPhoneNumber("+1299655890");
