@@ -125,4 +125,19 @@ const readAllResByCuisine = async (cuisine) => {
   }
 };
 
-readAllResByCuisine("Italian");
+// readAllResByCuisine("Italian");
+
+const updateRestaurant = async (resId, dataToUpdate) => {
+  try {
+    const updatedRes = await Restaurants.findByIdAndUpdate(
+      resId,
+      dataToUpdate,
+      {new:true}
+    );
+    console.log("Updated Restaurant:", updatedRes);
+  } catch (error) {
+    console.log("Error occurred while updating data.", error);
+  }
+};
+
+updateRestaurant("668671cdea70ab19f9d23f1f", { rating: 4.1 });
