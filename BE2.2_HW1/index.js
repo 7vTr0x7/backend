@@ -103,4 +103,26 @@ const readAllResWithDelivery = async () => {
   }
 };
 
-readAllResWithDelivery();
+// readAllResWithDelivery();
+
+const readResByPhoneNumber = async (number) => {
+  try {
+    const resByNumber = await Restaurants.findOne({ phoneNumber: number });
+    console.log("Restaurant By Phone Number:", resByNumber);
+  } catch (error) {
+    throw error;
+  }
+};
+
+// readResByPhoneNumber("+1288997392");
+
+const readAllResByCuisine = async (cuisine) => {
+  try {
+    const allResByCuisine = await Restaurants.find({ cuisine: cuisine });
+    console.log(allResByCuisine);
+  } catch (error) {
+    throw error;
+  }
+};
+
+readAllResByCuisine("Italian");

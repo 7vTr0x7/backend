@@ -44,7 +44,7 @@ const restaurantSchema = new mongoose.Schema(
       type: String,
     },
     phoneNumber: {
-      type: Number,
+      type: String,
       required: true,
     },
     openHours: {
