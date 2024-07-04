@@ -22,6 +22,26 @@ const newRestaurant = {
   ],
 };
 
+const newRestaurant1 = {
+  name: "Yo China",
+  cuisine: ["Chinese", "Italian"],
+  location: "MG Road, Bangalore",
+  rating: 3.9,
+  reviews: [],
+  website: "https://yo-example.com",
+  phoneNumber: "+1288997392",
+  openHours: "Tue-Sun: 10:00 AM - 11:00 PM",
+  priceRange: "$$$ (31-60)",
+  reservationsNeeded: true,
+  isDeliveryAvailable: false,
+  menuUrl: "https://yo-example.com/menu",
+  photos: [
+    "https://example.com/yo-photo1.jpg",
+    "https://example.com/yo-photo2.jpg",
+    "https://example.com/yo-photo3.jpg",
+  ],
+};
+
 const createRes = async (newRes) => {
   try {
     const res = new Restaurants(newRes);
@@ -32,4 +52,16 @@ const createRes = async (newRes) => {
   }
 };
 
-createRes(newRestaurant);
+// createRes(newRestaurant);
+// createRes(newRestaurant1);
+
+const readAllRestaurants = async () => {
+  try {
+    const allRes = await Restaurants.find();
+    console.log("All Restaurants:", allRes);
+  } catch (error) {
+    throw error;
+  }
+};
+
+readAllRestaurants();
