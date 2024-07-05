@@ -77,7 +77,9 @@ app.post("/items/:id", (req, res) => {
       updatedItemData.quantity
     ) {
       Object.assign(itemToUpdate, updatedItemData);
-      res.status(200).json({ message: "Item updated successfully" });
+      res
+        .status(200)
+        .json({ message: "Item updated successfully", item: itemToUpdate });
     } else {
       res.status(400).json({ error: "itemName, color and " });
     }
