@@ -2,6 +2,8 @@ const express = require("express");
 
 const app = express();
 
+app.use(express.json());
+
 const cars = [
   { id: 1, make: "Toyota", model: "Camry", year: 2022 },
   { id: 2, make: "Honda", model: "Civic", year: 2021 },
@@ -53,16 +55,22 @@ app.delete("/cars/:id", (req, res) => {
 });
 
 app.post("/cars/:id", (req, res) => {
-  const cadId = Number(req.params.id);
-  const dataToUpdate = req.body;
+  const updatedCarData = req.body;
+  const carId = Number(req.params.id);
+  console.log(updatedCarData);
 
   const carToUpdate = cars.find((car) => car.id === carId);
 
   if (!carToUpdate) {
     res.status(404).json({ error: "Car not Found" });
   } else {
-    if (dataToUpdate.make && dataToUpdate.model && dataToUpdate.year) {
-      Object.assign(carToUpdate, dataToUpdate);
+    if (
+      updatedCarData &&
+      updatedCarData.make &&
+      updatedCarData.model &&
+      updatedCarData.year
+    ) {
+      Object.assign(carToUpdate, updatedCarData);
       res
         .status(200)
         .json({ message: "Car data updated successfully", car: carToUpdate });
