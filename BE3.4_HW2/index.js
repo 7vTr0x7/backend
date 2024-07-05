@@ -26,6 +26,10 @@ const movies = [
   },
 ];
 
+app.get("/movies", (req, res) => {
+  res.send(movies);
+});
+
 app.post("/movies/:id", (req, res) => {
   const movieId = Number(req.params.id);
   const dataToUpdate = req.body;
