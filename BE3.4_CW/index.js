@@ -52,6 +52,26 @@ app.delete("/cars/:id", (req, res) => {
   }
 });
 
+app.post("/cars/:id", (req, res) => {
+  const cadId = Number(req.params.id);
+  const dataToUpdate = req.body;
+
+  const carToUpdate = cars.find((car) => car.id === carId);
+
+  if (!carToUpdate) {
+    res.status(404).json({ error: "Car not Found" });
+  } else {
+    if (dataToUpdate.make && dataToUpdate.model && dataToUpdate.year) {
+      Object.assign(carToUpdate, dataToUpdate);
+      res
+        .status(200)
+        .json({ message: "Car data updated successfully", car: carToUpdate });
+    } else {
+      res.status(400).json({ error: "Make, Model and Year are required." });
+    }
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server running on post: ${PORT}`);
