@@ -6,12 +6,19 @@ app.get("/", (req, res) => {
   res.send("Hello, Express JS");
 });
 
-app.get("/about", (req, res) => {
-  res.send("This is about page");
+app.get("/products", (req, res) => {
+  res.send("Browse our products here.");
 });
 
-app.get("/contact", (req, res) => {
-  res.send("Contact us at contact@example.com");
+app.get("/services", (req, res) => {
+  res.send("Explore our services.");
+});
+
+app.get("/faq", (req, res) => {
+  res.send("Frequently Asked Questions.");
+});
+app.get("/gallery", (req, res) => {
+  res.send("View our gallery.");
 });
 
 const PORT = 4000;
