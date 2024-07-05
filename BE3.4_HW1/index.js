@@ -49,6 +49,39 @@ app.get("/books", (req, res) => {
   res.send(books);
 });
 
+const todos = [
+  { id: 1, title: "Water the plants", day: "Saturday" },
+
+  { id: 2, title: "Go for a walk", day: "Sunday" },
+];
+
+app.get("/todos", (req, res) => {
+  res.send(todos);
+});
+
+app.post("/todos/:id", (req, res) => {
+  const todoId = Number(req.params.id);
+  const updatedTodo = req.body;
+
+  const todoToUpdate = todos.find((todo) => todo.id === todoId);
+
+  if (!todoToUpdate) {
+    res.status(404).json({ error: "Todo not Found" });
+  } else {
+    if (updatedTodo.title && updatedTodo.day) {
+      Object.assign(todoToUpdate, updatedTodo);
+      res
+        .status(200)
+        .json({
+          message: "Todo Data updated successfully",
+          todo: todoToUpdate,
+        });
+    } else {
+      res.status(400).json({ error: "Title and day are required" });
+    }
+  }
+});
+
 const PORT = 4000;
 
 app.listen(PORT, () => {
