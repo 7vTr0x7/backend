@@ -41,6 +41,10 @@ app.post("/books/:id", (req, res) => {
   }
 });
 
+app.get("/books", (req, res) => {
+  res.send(books);
+});
+
 const PORT = 4000;
 
 app.listen(PORT, () => {
