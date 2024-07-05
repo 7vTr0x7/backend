@@ -11,7 +11,7 @@ const initializeDatabase = async () => {
       console.log("Connected to MongoDB");
     }
   } catch (error) {
-    throw error;
+    console.log("Error occurred while connecting to database.", error);
   }
 };
 
