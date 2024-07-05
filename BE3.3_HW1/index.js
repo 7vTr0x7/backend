@@ -66,6 +66,18 @@ app.get("/todos", (req, res) => {
   res.send(todos);
 });
 
+app.delete("/todos/:id", (req, res) => {
+  const todoId = req.params.id;
+
+  const index = todos.findIndex((todo) => todo.id == todoId);
+
+  if (index === -1) {
+    res.status(404).json({ error: "Todo does not exist" });
+  } else {
+    todos.splice(index, 1);
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server running on post: ${PORT}`);
