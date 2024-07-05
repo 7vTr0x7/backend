@@ -48,10 +48,10 @@ app.delete("/movies/:id", (req, res) => {
   const index = movies.findIndex((movie) => movieId == movie.id);
 
   if (index === -1) {
-    res.status(404).json({ error: "Item not Found" });
+    res.status(404).json({ error: "Movie not Found" });
   } else {
     movies.splice(index, 1);
-    res.status(200).json({ message: "Item deleted successfully" });
+    res.status(200).json({ message: "Movie deleted successfully" });
   }
 });
 
