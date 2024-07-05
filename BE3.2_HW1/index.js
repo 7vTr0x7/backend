@@ -32,6 +32,22 @@ app.get("/books", (req, res) => {
   res.send(books);
 });
 
+const todos = [{ id: 1, title: "Water the plants", day: "Saturday" }];
+
+app.post("/todos", (req, res) => {
+  const newTodo = req.body;
+  if (newTodo.title && newTodo.day) {
+    todos.push(newTodo);
+    res.status(201).json({ message: "todo added successfully", todo: newTodo });
+  } else {
+    res.status(400).json({ error: "title and day are required" });
+  }
+});
+
+app.get("/todos", (req, res) => {
+  res.send(todos);
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server running on post: ${PORT}`);
