@@ -1,6 +1,7 @@
 const express = require("express");
 
 const app = express();
+app.use(express.json());
 
 const cars = [{ id: 1, make: "Toyota", model: "Camry", year: 2022 }];
 
@@ -13,7 +14,7 @@ app.post("/cars", (req, res) => {
 
   if (newCar.make && newCar.model && newCar.year) {
     cars.push(newCar);
-    res.status(201).json({ message: "Car added successfully" });
+    res.status(201).json({ message: "Car added successfully", car: newCar });
   } else {
     res.status(400).json({ error: "make, model and year are required" });
   }
