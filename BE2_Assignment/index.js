@@ -77,4 +77,15 @@ const readCarsByBrand = async (brand) => {
   }
 };
 
-readCarsByBrand("Ford");
+// readCarsByBrand("Ford");
+
+const readCarsByColor = async (color) => {
+  try {
+    const carsByColor = await Cars.find({ color: color });
+    console.log("Cars By color:", carsByColor);
+  } catch (error) {
+    console.log("Error while reading cars data by color", error);
+  }
+};
+
+readCarsByColor("Black");
