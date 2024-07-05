@@ -35,6 +35,10 @@ app.post("/books/:id", (req, res) => {
       updatedBookData.year
     ) {
       Object.assign(bookToUpdate, updatedBookData);
+      res.status(200).json({
+        Message: "Book Data Updated Successfully",
+        book: bookToUpdate,
+      });
     } else {
       res.status(400).json({ error: "Title, author and year are required" });
     }
