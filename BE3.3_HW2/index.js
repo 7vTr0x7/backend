@@ -42,6 +42,19 @@ app.get("/movies", (req, res) => {
   res.send(movies);
 });
 
+app.delete("/movies/:id", (req, res) => {
+  const movieId = req.params.id;
+
+  const index = movies.findIndex((movie) => movieId == movie.id);
+
+  if (index === -1) {
+    res.status(404).json({ error: "Item not Found" });
+  } else {
+    movies.splice(index, 1);
+    res.status(200).json({ message: "Item deleted successfully" });
+  }
+});
+
 const items = [
   { id: 1, itemName: "Spoon", color: "Silver", quantity: 8 },
 
