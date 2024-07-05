@@ -46,6 +46,8 @@ const items = [
   { id: 1, itemName: "Spoon", color: "Silver", quantity: 8 },
 
   { id: 2, itemName: "Fork", color: "Silver", quantity: 8 },
+
+  { id: 3, itemName: "Plate", color: "Off-White", quantity: 6 },
 ];
 
 app.get("/items", (req, res) => {
