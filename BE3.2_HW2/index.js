@@ -35,6 +35,27 @@ app.get("/movies", (req, res) => {
   res.send(movies);
 });
 
+const items = [
+  { id: 1, itemName: "Spoon", color: "Silver", quantity: 8 },
+
+  { id: 2, itemName: "Fork", color: "Silver", quantity: 8 },
+];
+
+app.get("/items", (req, res) => {
+  res.send(items);
+});
+
+app.post("/items", (req, res) => {
+  const newItem = req.body;
+
+  if (newItem.itemName && newItem.color && newItem.quantity) {
+    items.push(newItem);
+    res.status(201).json({ message: "Item added successfully", item: newItem });
+  } else {
+    res.status(400).json({ error: "Title, Color and Quantity are required" });
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server running on post: ${PORT}`);
