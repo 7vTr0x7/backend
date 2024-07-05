@@ -58,7 +58,7 @@ const items = [
   { id: 3, itemName: "Plate", color: "Off-White", quantity: 6 },
 ];
 
-app.get("/", (req, res) => {
+app.get("/items", (req, res) => {
   res.send(items);
 });
 
