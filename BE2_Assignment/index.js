@@ -103,7 +103,7 @@ const updateCarPrice = async (model, price) => {
   }
 };
 
-updateCarPrice("Corolla", 2300000);
+// updateCarPrice("Corolla", 2300000);
 
 const updateCarCondition = async (model, condition) => {
   try {
@@ -118,4 +118,25 @@ const updateCarCondition = async (model, condition) => {
   }
 };
 
-updateCarCondition("Model S", "Used");
+// updateCarCondition("Model S", "Used");
+
+const deleteCarById = async (id) => {
+  try {
+    const deletedCar = await Cars.findByIdAndDelete(id);
+    console.log("Deleted Car:", deletedCar);
+  } catch (error) {
+    console.log("Error occurred while deleting car by id:", error);
+  }
+};
+
+// deleteCarById("668639ca2fafe37e1ea6d185");
+
+const deleteCarByBodyStyle = async (style) => {
+  try {
+    const deletedCar = await Cars.findOneAndDelete({ bodyStyle: style });
+    console.log("Deleted Car:", deletedCar);
+  } catch (error) {
+    console.log("Error occurred while deleting car by body style:", error);
+  }
+};
+deleteCarByBodyStyle("Coupe");
