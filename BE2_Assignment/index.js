@@ -104,3 +104,18 @@ const updateCarPrice = async (model, price) => {
 };
 
 updateCarPrice("Corolla", 2300000);
+
+const updateCarCondition = async (model, condition) => {
+  try {
+    const updatedCar = await Cars.findOneAndUpdate(
+      { model: model },
+      { condition: condition },
+      { new: true }
+    );
+    console.log("Updated Car:", updatedCar);
+  } catch (error) {
+    console.log("Error occurred while updating car condition", error);
+  }
+};
+
+updateCarCondition("Model S", "Used");
