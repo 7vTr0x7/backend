@@ -34,6 +34,18 @@ app.get("/books", (req, res) => {
   res.send(books);
 });
 
+app.delete("/books/:id", (req, res) => {
+  const bookId = req.params.id;
+
+  const index = books.findIndex((book) => book.id == bookId);
+  if (index === -1) {
+    res.status(404).json({ error: "Book not found" });
+  } else {
+    books.splice(index, 1);
+    res.status(200).json({ message: "Book deleted successfully" });
+  }
+});
+
 const todos = [
   { id: 1, title: "Water the plants", day: "Saturday" },
 
