@@ -39,6 +39,19 @@ app.get("/cars", (req, res) => {
   res.send(cars);
 });
 
+app.delete("/cars/:id", (req, res) => {
+  const carId = req.params.id;
+
+  const index = cars.findIndex((car) => car.id == carId);
+
+  if (index === -1) {
+    res.status(404).json({ error: "Car not found" });
+  } else {
+    cars.splice(index, 1);
+    res.status(200).json({ message: "Car deleted successfully" });
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server running on post: ${PORT}`);
