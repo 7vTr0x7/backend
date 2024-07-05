@@ -88,4 +88,19 @@ const readCarsByColor = async (color) => {
   }
 };
 
-readCarsByColor("Black");
+// readCarsByColor("Black");
+
+const updateCarPrice = async (model, price) => {
+  try {
+    const updatedCar = await Cars.findOneAndUpdate(
+      { model: model },
+      { price: price },
+      { new: true }
+    );
+    console.log("Updated Car:", updatedCar);
+  } catch (error) {
+    console.log("Error occurred while updating car price", error);
+  }
+};
+
+updateCarPrice("Corolla", 2300000);
