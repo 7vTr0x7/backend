@@ -78,6 +78,19 @@ app.post("/items", (req, res) => {
   }
 });
 
+app.delete("/items/:id", (req, res) => {
+  const itemId = req.params.id;
+
+  const index = items.findIndex((item) => item.id == itemId);
+
+  if (index === -1) {
+    res.status(404).json({ error: "Item not Found" });
+  } else {
+    items.splice(index, 1);
+    res.status(200).json({ message: "Item Deleted Successfully" });
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server running on post: ${PORT}`);
