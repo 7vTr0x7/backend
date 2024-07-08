@@ -9,6 +9,29 @@ app.use(express.json());
 
 initializeDatabase();
 
+const createMovie = async (movie) => {
+  try {
+    const newMovie = new Movie(movie);
+    const savedMovie = await newMovie.save();
+    return savedMovie;
+  } catch (error) {
+    throw error;
+  }
+};
+
+app.post("/movies", async (req, res) => {
+  try {
+    const savedMovie = await createMovie(req.body);
+    if (savedMovie) {
+      res.status(201).json({ message: "Movie saved", movie: savedMovie });
+    } else {
+      res.status(404).json({ error: "Movie not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Failed to add movie" });
+  }
+});
+
 const readMovieByTitle = async (title) => {
   try {
     const movieByTitle = await Movie.findOne({ title: title });
