@@ -51,16 +51,27 @@ app.get("/movies", async (req, res) => {
   }
 });
 
-const readMoviesByDirector = async (movieDirector) => {
+const readMovieByDirector = async (director) => {
   try {
-    const moviesByDirector = await Movie.find({ director: movieDirector });
-    console.log(moviesByDirector);
+    const movieByDirector = await Movie.find({ director: director });
+    return movieByDirector;
   } catch (error) {
     throw error;
   }
 };
 
-// readMoviesByDirector("Rajkumar Hirani");
+app.get("/movies/director/:directorName", async (req, res) => {
+  try {
+    const movie = await readMovieByDirector(req.params.directorName);
+    if (movie) {
+      res.json(movie);
+    } else {
+      res.status(404).json({ error: "Movie By director not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch movie by director" });
+  }
+});
 
 const PORT = 4000;
 
