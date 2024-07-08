@@ -39,7 +39,18 @@ const readHotelByName = async (hotelName) => {
   }
 };
 
-// readHotelByName("Lake View");
+app.get("/hotels/:hotelName", async (req, res) => {
+  try {
+    const hotels = await readHotelByName(req.params.hotelName);
+    if (hotels) {
+      res.json(hotels);
+    } else {
+      res.status(404).json({ error: "Hotel not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Failed to get data" });
+  }
+});
 
 const readAllHotelsWithParking = async () => {
   try {
@@ -106,75 +117,6 @@ const readHotelByPhoneNumber = async (number) => {
 };
 
 // readHotelByPhoneNumber("+1299655890");
-
-const updateHotelCheckoutTime = async (hotelId, dataToUpdate) => {
-  try {
-    const updatedHotel = await Hotels.findByIdAndUpdate(hotelId, dataToUpdate, {
-      new: true,
-    });
-    console.log("Updated Checkout time:", updatedHotel);
-  } catch (error) {
-    console.log("Error occurred while updating checkout time", error);
-  }
-};
-
-// updateHotelCheckoutTime("66867e2c571392433699132b", { checkOutTime: "11 AM" });
-
-const updateHotelRating = async (hotelName, dataToUpdate) => {
-  try {
-    const updatedHotel = await Hotels.findOneAndUpdate(
-      hotelName,
-      dataToUpdate,
-      { new: true }
-    );
-
-    console.log("Updated rating:", updatedHotel);
-  } catch (error) {
-    console.log("Error occurred while updating rating", error);
-  }
-};
-
-// updateHotelRating({ name: "Sunset Resort" }, { rating: 4.2 });
-
-const updateHotelPhoneNumber = async (number, dataToUpdate) => {
-  try {
-    const updatedHotel = await Hotels.findOneAndUpdate(number, dataToUpdate, {
-      new: true,
-    });
-    console.log("Updated Hotel Phone Number:", updatedHotel);
-  } catch (error) {
-    console.log("Error occurred while updating phone number", error);
-  }
-};
-
-// updateHotelPhoneNumber(
-//   { phoneNumber: "+1299655890" },
-//   { phoneNumber: "+1997687392" }
-// );
-
-const deleteHotelById = async (id) => {
-  try {
-    const deletedHotel = await Hotels.findByIdAndDelete(id);
-    console.log("Deleted Hotel:", deletedHotel);
-  } catch (error) {
-    console.log("Error occurred while deleting hotel by id", error);
-  }
-};
-
-// deleteHotelById("66864cbfcfe961190085d95b");
-
-const deleteHotelByPhoneNumber = async (number) => {
-  try {
-    const deletedHotel = await Hotels.findOneAndDelete({
-      phoneNumber: number,
-    });
-    console.log("Deleted Hotel:", deletedHotel);
-  } catch (error) {
-    console.log("Error occurred while deleting hotel by phone number", error);
-  }
-};
-
-// deleteHotelByPhoneNumber("+1234567890");
 
 const PORT = 4000;
 app.listen(PORT, () => {
