@@ -36,6 +36,18 @@ app.post("/albums", (req, res) => {
   }
 });
 
+app.delete("/albums/:id", (req, res) => {
+  const albumId = Number(req.params.id);
+  const albumIndex = albums.findIndex((album) => album.id === albumId);
+
+  if (albumIndex === -1) {
+    res.status(404).json({ error: "Album not Found" });
+  } else {
+    albums.splice(albumIndex, 1);
+    res.status(200).json({ message: "Album deleted successfully" });
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
