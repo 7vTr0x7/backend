@@ -76,6 +76,28 @@ app.get("/restaurants/directory/:phoneNumber", async (req, res) => {
   }
 });
 
+const readRestaurantsByCuisine = async (name) => {
+  try {
+    const restaurantsByCuisine = await Restaurants.find({ cuisine: name });
+    return restaurantsByCuisine;
+  } catch (error) {
+    throw error;
+  }
+};
+
+app.get("/restaurants/cuisine/:cuisineName", async (req, res) => {
+  try {
+    const restaurants = await readRestaurantsByCuisine(req.params.cuisineName);
+    if (restaurants) {
+      res.json(restaurants);
+    } else {
+      res.status(404).json({ error: "Restaurants not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Failed to get restaurant" });
+  }
+});
+
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
