@@ -1,57 +1,55 @@
+const express = require("express");
 const { initializeDatabase } = require("./db/db.connect");
 const fs = require("fs");
 const Movie = require("./models/movies.models");
 
+const app = express();
+
+app.use(express.json());
+
 initializeDatabase();
 
-const newMovie = {
-  title: "New Movie",
-  releaseYear: 2023,
-  genre: ["Drama"],
-  director: "Aditya Roy Chopra",
-  actors: ["Actor1", "Actor2"],
-  language: "Hindi",
-  country: "India",
-  rating: 6.1,
-  plot: "A young man and woman fall in love on a Australia trip.",
-  awards: "IFA Filmfare Awards",
-  posterUrl: "https://example.com/new-poster1.jpg",
-  trailerUrl: "https://example.com/new-trailer1.mp4",
-};
-
-const createMovie = async (movie) => {
+const readMovieByTitle = async (title) => {
   try {
-    const newMovie = new Movie(movie);
-    const savedMovie = await newMovie.save();
-    console.log("Movie:", savedMovie);
+    const movieByTitle = await Movie.findOne({ title: title });
+    return movieByTitle;
   } catch (error) {
     throw error;
   }
 };
 
-// createMovie(newMovie);
-
-const readMovieByTitle = async (movieName) => {
+app.get("/movies/:title", async (req, res) => {
   try {
-    const movieByTitle = await Movie.findOne({ title: movieName });
-    console.log(movieByTitle);
+    const movie = await readMovieByTitle(req.params.title);
+    if (movie) {
+      res.json(movie);
+    } else res.status(404).json({ error: "Movie not Found" });
   } catch (error) {
-    throw error;
+    res.status(500).json({ error: "Failed to fetch movie" });
   }
-};
-
-// readMovieByTitle("Lagaan");
+});
 
 const readAllMovies = async () => {
   try {
     const allMovies = await Movie.find();
-    console.log(allMovies);
+    return allMovies;
   } catch (error) {
     throw error;
   }
 };
 
-// readAllMovies();
+app.get("/movies", async (req, res) => {
+  try {
+    const movies = await readAllMovies();
+    if (movies) {
+      res.json(movies);
+    } else {
+      res.status(404).json({ error: "Movies not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch movies" });
+  }
+});
 
 const readMoviesByDirector = async (movieDirector) => {
   try {
@@ -62,4 +60,10 @@ const readMoviesByDirector = async (movieDirector) => {
   }
 };
 
-readMoviesByDirector("Rajkumar Hirani");
+// readMoviesByDirector("Rajkumar Hirani");
+
+const PORT = 4000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port: ${PORT}`);
+});
