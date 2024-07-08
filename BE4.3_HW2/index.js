@@ -138,6 +138,24 @@ app.get("/hotels/category/:hotelCategory", async (req, res) => {
   }
 });
 
+const deleteHotel = async (hotelId) => {
+  try {
+    const deletedHotel = await Hotels.findByIdAndDelete(hotelId);
+    return deletedHotel;
+  } catch (error) {
+    throw error;
+  }
+};
+
+app.delete("/hotels/hotelId", async (req, res) => {
+  try {
+    const deletedHotel = await deletedHotel(req.params.hotelId);
+    res.status(201).json({ message: "Deleted", hotel: deletedHotel });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete" });
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
