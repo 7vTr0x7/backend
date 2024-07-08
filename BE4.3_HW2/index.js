@@ -147,9 +147,9 @@ const deleteHotel = async (hotelId) => {
   }
 };
 
-app.delete("/hotels/hotelId", async (req, res) => {
+app.delete("/hotels/:hotelId", async (req, res) => {
   try {
-    const deletedHotel = await deletedHotel(req.params.hotelId);
+    const deletedHotel = await deleteHotel(req.params.hotelId);
     res.status(201).json({ message: "Deleted", hotel: deletedHotel });
   } catch (error) {
     res.status(500).json({ error: "Failed to delete" });
