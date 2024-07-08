@@ -53,27 +53,27 @@ app.get("/hotels/:hotelName", async (req, res) => {
   }
 });
 
-const readAllHotelsWithParking = async () => {
+const readHotelByPhoneNumber = async (number) => {
   try {
-    const hotelsWithParking = await Hotels.find({ isParkingAvailable: true });
-    console.log("Hotels With Parking:", hotelsWithParking);
+    const hotelByNumber = await Hotels.findOne({ phoneNumber: number });
+    return hotelByNumber;
   } catch (error) {
     throw error;
   }
 };
 
-// readAllHotelsWithParking();
-
-const readAllHotelsWithRes = async () => {
+app.get("/hotels/directory/:phoneNumber", async (req, res) => {
   try {
-    const allHotelsWithRes = await Hotels.find({ isRestaurantAvailable: true });
-    console.log("All Hotels With Restaurants:", allHotelsWithRes);
+    const hotel = await readHotelByPhoneNumber(req.params.phoneNumber);
+    if (hotel) {
+      res.json(hotel);
+    } else {
+      res.status(404).json({ error: "Hotel not Found" });
+    }
   } catch (error) {
-    throw error;
+    res.status(500).json({ error: "Failed to get hotel" });
   }
-};
-
-// readAllHotelsWithRes();
+});
 
 const allHotelsByCategory = async (category) => {
   try {
@@ -84,19 +84,6 @@ const allHotelsByCategory = async (category) => {
   }
 };
 
-// allHotelsByCategory("Mid-Range");
-
-const readAllHotelByPriceRange = async (priceRange) => {
-  try {
-    const allHotelsByPrice = await Hotels.find({ priceRange: priceRange });
-    console.log("All Hotels By Price Range:", allHotelsByPrice);
-  } catch (error) {
-    throw error;
-  }
-};
-
-// readAllHotelByPriceRange("$$$$ (61+)");
-
 const readHotelsWithRating = async (rating) => {
   try {
     const hotelWithRating = await Hotels.findOne({ rating: rating });
@@ -105,19 +92,6 @@ const readHotelsWithRating = async (rating) => {
     throw error;
   }
 };
-
-// readHotelsWithRating(4.0);
-
-const readHotelByPhoneNumber = async (number) => {
-  try {
-    const hotelByNumber = await Hotels.findOne({ phoneNumber: number });
-    console.log("Hotel By Number:", hotelByNumber);
-  } catch (error) {
-    throw error;
-  }
-};
-
-// readHotelByPhoneNumber("+1299655890");
 
 const PORT = 4000;
 app.listen(PORT, () => {
