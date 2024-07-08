@@ -29,6 +29,25 @@ initializeDatabase();
 //   ],
 // };
 
+const createRes = async (res) => {
+  try {
+    const newRes = new Restaurants(res);
+    const savedRes = newRes.save();
+    return savedRes;
+  } catch (error) {
+    throw error;
+  }
+};
+
+app.post("/restaurants", async (req, res) => {
+  try {
+    const savedRes = await createRes(req.body);
+    res.status(201).json({ message: "Restaurant saved", res: savedRes });
+  } catch (error) {
+    res.status.json({ error: "Failed to add restaurants" });
+  }
+});
+
 const readAllRestaurants = async () => {
   try {
     const allRes = await Restaurants.find();
