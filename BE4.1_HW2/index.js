@@ -100,11 +100,24 @@ app.get("/hotels/rating/:hotelRating", async (req, res) => {
 const allHotelsByCategory = async (category) => {
   try {
     const allHotelsByCategory = await Hotels.find({ category: category });
-    console.log("All Hotels By Category:", allHotelsByCategory);
+    return allHotelsByCategory;
   } catch (error) {
     throw error;
   }
 };
+
+app.get("/hotels/category/:hotelCategory", async (req, res) => {
+  try {
+    const hotels = await allHotelsByCategory(req.params.hotelCategory);
+    if (hotels) {
+      res.json(hotels);
+    } else {
+      res.status(404).json({ error: "Hotels not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Failed to get hotels" });
+  }
+});
 
 const PORT = 4000;
 app.listen(PORT, () => {
