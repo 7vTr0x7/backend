@@ -48,6 +48,26 @@ app.delete("/albums/:id", (req, res) => {
   }
 });
 
+app.post("/albums/:id", (req, res) => {
+  const albumId = Number(req.params.id);
+  const updatedAlbum = req.body;
+
+  const albumToUpdate = albums.find((album) => album.id === albumId);
+
+  if (!albumToUpdate) {
+    res.status(404).json({ error: "Album not Found" });
+  } else {
+    if (updatedAlbum.title && updatedAlbum.artist && updatedAlbum.year) {
+      Object.assign(albumToUpdate, updatedAlbum);
+      res
+        .status(200)
+        .json({ message: "Album updated successfully", album: albumToUpdate });
+    } else {
+      res.status(400).json({ error: "title, artist and year are required" });
+    }
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
