@@ -118,6 +118,24 @@ app.get("/movies/genres/:genreName", async (req, res) => {
   }
 });
 
+const deleteMovieById = async (movieId) => {
+  try {
+    const deletedMovie = await Movie.findByIdAndDelete(movieId);
+    return deletedMovie;
+  } catch (error) {
+    throw error;
+  }
+};
+
+app.delete("/movies/:id", async (req, res) => {
+  try {
+    const deletedMovie = await deleteMovieById(req.params.id);
+    res.status(201).json({ message: "Movie Deleted", movie: deletedMovie });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete" });
+  }
+});
+
 const PORT = 4000;
 
 app.listen(PORT, () => {
