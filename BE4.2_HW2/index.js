@@ -8,6 +8,49 @@ app.use(express.json());
 
 initializeDatabase();
 
+const newHotel = {
+  name: "Lake View",
+  category: "Mid-Range",
+  location: "124 Main Street, Anytown",
+  rating: 3.2,
+  reviews: [],
+  website: "https://lake-view-example.com",
+  phoneNumber: "+1234555890",
+  checkInTime: "2:00 PM",
+  checkOutTime: "12:00 PM",
+  amenities: ["Laundry", "Boating"],
+  priceRange: "$$$ (31-60)",
+  reservationsNeeded: true,
+  isParkingAvailable: false,
+  isWifiAvailable: true,
+  isPoolAvailable: false,
+  isSpaAvailable: false,
+  isRestaurantAvailable: false,
+  photos: [
+    "https://example.com/hotel1-photo1.jpg",
+    "https://example.com/hotel1-photo2.jpg",
+  ],
+};
+
+const createHotel = async (hotel) => {
+  try {
+    const newHotel = new Hotels(hotel);
+    const savedHotel = newHotel.save();
+    return savedHotel;
+  } catch (error) {
+    throw error;
+  }
+};
+
+app.post("/hotels", async (req, res) => {
+  try {
+    const savedHotel = await createHotel(req.body);
+    res.status(201).json({ message: "Saved Successfully", hotel: savedHotel });
+  } catch (error) {
+    throw error;
+  }
+});
+
 const readAllHotels = async () => {
   try {
     const allHotels = await Hotels.find();
