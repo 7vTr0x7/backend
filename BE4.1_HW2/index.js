@@ -75,19 +75,32 @@ app.get("/hotels/directory/:phoneNumber", async (req, res) => {
   }
 });
 
-const allHotelsByCategory = async (category) => {
+const readHotelsByRating = async (rating) => {
   try {
-    const allHotelsByCategory = await Hotels.find({ category: category });
-    console.log("All Hotels By Category:", allHotelsByCategory);
+    const hotelByRating = await Hotels.findOne({ rating: rating });
+    return hotelByRating;
   } catch (error) {
     throw error;
   }
 };
 
-const readHotelsWithRating = async (rating) => {
+app.get("/hotels/rating/:hotelRating", async (req, res) => {
   try {
-    const hotelWithRating = await Hotels.findOne({ rating: rating });
-    console.log("Hotel With Rating:", hotelWithRating);
+    const hotel = await readHotelsByRating(req.params.hotelRating);
+    if (hotel) {
+      res.json(hotel);
+    } else {
+      res.status(404).json({ error: "Hotel not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Failed to get hotel" });
+  }
+});
+
+const allHotelsByCategory = async (category) => {
+  try {
+    const allHotelsByCategory = await Hotels.find({ category: category });
+    console.log("All Hotels By Category:", allHotelsByCategory);
   } catch (error) {
     throw error;
   }
