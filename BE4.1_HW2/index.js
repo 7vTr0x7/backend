@@ -11,11 +11,24 @@ initializeDatabase();
 const readAllHotels = async () => {
   try {
     const allHotels = await Hotels.find();
-    console.log("All Hotels:", allHotels);
+    return allHotels;
   } catch (error) {
     throw error;
   }
 };
+
+app.get("/hotels", async (req, res) => {
+  try {
+    const hotels = await readAllHotels();
+    if (hotels) {
+      res.json(hotels);
+    } else {
+      res.status(404).json({ error: "Hotel not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Failed to get hotels" });
+  }
+});
 
 const readHotelByName = async (hotelName) => {
   try {
@@ -161,4 +174,9 @@ const deleteHotelByPhoneNumber = async (number) => {
   }
 };
 
-deleteHotelByPhoneNumber("+1234567890");
+// deleteHotelByPhoneNumber("+1234567890");
+
+const PORT = 4000;
+app.listen(PORT, () => {
+  console.log(`Server running on port: ${PORT}`);
+});
