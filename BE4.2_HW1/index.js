@@ -8,27 +8,6 @@ app.use(express.json());
 
 initializeDatabase();
 
-// {
-
-//   name: "Yo China",
-//   cuisine: ["Chinese", "Italian"],
-//   location: "MG Road, Bangalore",
-//   rating: 3.9,
-//   reviews: [],
-//   website: "https://yo-example.com",
-//   phoneNumber: "+1288997392",
-//   openHours: "Tue-Sun: 10:00 AM - 11:00 PM",
-//   priceRange: "$$$ (31-60)",
-//   reservationsNeeded: true,
-//   isDeliveryAvailable: false,
-//   menuUrl: "https://yo-example.com/menu",
-//   photos: [
-//     "https://example.com/yo-photo1.jpg",
-//     "https://example.com/yo-photo2.jpg",
-//     "https://example.com/yo-photo3.jpg",
-//   ],
-// };
-
 const createRes = async (res) => {
   try {
     const newRes = new Restaurants(res);
@@ -162,7 +141,7 @@ app.get("/restaurants/location/:restaurantLocation", async (req, res) => {
   }
 });
 
-const PORT = 3000;
+const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
 });
