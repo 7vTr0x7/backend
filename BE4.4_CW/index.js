@@ -136,6 +136,28 @@ app.delete("/movies/:id", async (req, res) => {
   }
 });
 
+const updateMovies = async (movieId, dataToUpdate) => {
+  try {
+    const updatedMovie = await Movie.findByIdAndUpdate(movieId, dataToUpdate, {
+      new: true,
+    });
+    return updatedMovie;
+  } catch (error) {
+    throw error;
+  }
+};
+
+app.post("movies/:movieId", async (req, res) => {
+  try {
+    const updatedMovie = await updateMovies(req.params.movieId, req.body);
+    res
+      .status(201)
+      .json({ message: "updated successfully", movie: updatedMovie });
+  } catch (error) {
+    res.status(500).json({ error: "failed to update" });
+  }
+});
+
 const PORT = 4000;
 
 app.listen(PORT, () => {
