@@ -33,7 +33,7 @@ app.get("/hotels", async (req, res) => {
 const readHotelByName = async (hotelName) => {
   try {
     const hotelByName = await Hotels.findOne({ name: hotelName });
-    console.log("Hotel By Name:", hotelByName);
+    return hotelByName;
   } catch (error) {
     throw error;
   }
@@ -41,6 +41,7 @@ const readHotelByName = async (hotelName) => {
 
 app.get("/hotels/:hotelName", async (req, res) => {
   try {
+    console.log(req);
     const hotels = await readHotelByName(req.params.hotelName);
     if (hotels) {
       res.json(hotels);
