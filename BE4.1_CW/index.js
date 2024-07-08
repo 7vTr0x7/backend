@@ -73,19 +73,19 @@ app.get("/movies/director/:directorName", async (req, res) => {
   }
 });
 
-const readMoviesByGenre = async (genre) => {
+const readMoviesByGenre = async (genreName) => {
   try {
-    const moviesByGenre = await Movie.find({ genre: genre });
+    const moviesByGenre = await Movie.find({ genre: genreName });
     return moviesByGenre;
   } catch (error) {
     throw error;
   }
 };
 
-app.get("/movies/genres/:genre", async (req, res) => {
+app.get("/movies/genres/:genreName", async (req, res) => {
   try {
-    const movies = await readMoviesByGenre(req.params.genre);
-    if (movies) {
+    const movies = await readMoviesByGenre(req.params.genreName);
+    if (movies.length > 0) {
       res.json(movies);
     } else {
       res.status(404).json({ error: "Movies not found" });
