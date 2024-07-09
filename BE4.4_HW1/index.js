@@ -159,6 +159,37 @@ app.delete("/restaurants/:resId", async (req, res) => {
   }
 });
 
+const updateRes = async (resId, dataToUpdate) => {
+  try {
+    const updatedRes = await Restaurants.findByIdAndUpdate(
+      resId,
+      dataToUpdate,
+      {
+        new: true,
+      }
+    );
+    return updatedRes;
+  } catch (error) {
+    throw error;
+  }
+};
+
+app.post("/restaurants/:resId", async (req, res) => {
+  try {
+    const updatedRes = await updateRes(req.params.resId, req.body);
+    if (updatedRes) {
+      res.status(200).json({
+        message: "Updated",
+        res: updatedRes,
+      });
+    } else {
+      res.status(404).json({ error: "Restaurant not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update data" });
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
