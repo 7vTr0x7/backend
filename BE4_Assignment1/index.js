@@ -53,6 +53,26 @@ app.get("/books", async (req, res) => {
   }
 });
 
+const readBookByTitle = async (title) => {
+  try {
+    const bookByTitle = await Books.findOne({ title: title });
+    return bookByTitle;
+  } catch (error) {
+    throw error;
+  }
+};
+
+app.get("/books/:title", async (req, res) => {
+  try {
+    const book = await readBookByTitle(req.params.title);
+    if (book) {
+      res.status(200).json(book);
+    }
+  } catch (error) {
+    res.status(500).json({ error: `Failed to get books by title ${error}` });
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
