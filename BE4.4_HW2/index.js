@@ -156,6 +156,30 @@ app.delete("/hotels/:hotelId", async (req, res) => {
   }
 });
 
+const updateHotel = async (hotelId, dataToUpdate) => {
+  try {
+    const updatedHotel = await Hotels.findByIdAndUpdate(hotelId, dataToUpdate, {
+      new: true,
+    });
+    return updatedHotel;
+  } catch (error) {
+    throw error;
+  }
+};
+
+app.post("/hotels/:hotelId", async (req, res) => {
+  try {
+    const updatedHotel = await updateHotel(req.params.hotelId, req.body);
+    if (updatedHotel) {
+      res.status(200).json({ message: "Updated", hotel: updatedHotel });
+    } else {
+      res.status(404).json({ error: "Hotel Not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update" });
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
