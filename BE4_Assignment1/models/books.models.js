@@ -20,7 +20,8 @@ const booksSchema = new mongoose.Schema(
         type: String,
         enum: [
           "Fiction",
-          "Non-Fiction",
+          "Non-fiction",
+          "Business",
           "Mystery",
           "Thriller",
           "Science Fiction",
@@ -29,6 +30,7 @@ const booksSchema = new mongoose.Schema(
           "Historical",
           "Biography",
           "Self-help",
+          "Autobiography",
           "Other",
         ],
       },
