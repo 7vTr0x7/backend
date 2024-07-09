@@ -95,6 +95,28 @@ app.get("/books/authors/:authorName", async (req, res) => {
   }
 });
 
+const readBooksByGenre = async (genre) => {
+  try {
+    const booksByGenre = await Books.find({ genre: genre });
+    return booksByGenre;
+  } catch (error) {
+    throw error;
+  }
+};
+
+app.get("/books/genres/:genreName", async (req, res) => {
+  try {
+    const books = await readBooksByGenre(req.params.genreName);
+    if (books.length > 0) {
+      res.json(books);
+    } else {
+      res.status(404).json({ error: "Books not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: `Failed to get books: ${error}` });
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
