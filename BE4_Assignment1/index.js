@@ -117,7 +117,30 @@ app.get("/books/genres/:genreName", async (req, res) => {
   }
 });
 
+const readBooksByYear = async (year) => {
+  try {
+    const books = await Books.find({ publishedYear: Number(year) });
+    return books;
+  } catch (error) {
+    throw error;
+  }
+};
+
+app.get("/books/release/:year", async (req, res) => {
+  try {
+    const books = await readBooksByYear(req.params.year);
+    if (books.length > 0) {
+      res.json(books);
+    } else {
+      res.status(404).json({ error: "Books not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: `Failed to get books: ${error}` });
+  }
+});
+
 const PORT = 4000;
+
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
 });
