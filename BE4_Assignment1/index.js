@@ -192,6 +192,30 @@ app.post("/books/book/:title", async (req, res) => {
   }
 });
 
+const deleteBook = async (bookId) => {
+  try {
+    const deletedBook = await Books.findByIdAndDelete(bookId);
+    if (deletedBook) {
+      return deletedBook;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+app.delete("/books/:id", async (req, res) => {
+  try {
+    const deletedBook = await deleteBook(req.params.id);
+    if (deletedBook) {
+      res.json(deletedBook);
+    } else {
+      res.status(404).json({ error: "Book not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: `Failed to delete book: ${error}` });
+  }
+});
+
 const PORT = 4000;
 
 app.listen(PORT, () => {
