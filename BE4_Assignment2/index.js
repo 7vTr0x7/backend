@@ -138,6 +138,35 @@ app.get("/recipes/difficulty/:level", async (req, res) => {
   }
 });
 
+const updateRecipeById = async (recipeId, dataToUpdate) => {
+  try {
+    const recipe = await Recipes.findByIdAndUpdate(recipeId, dataToUpdate, {
+      new: true,
+    });
+    if (recipe) {
+      return recipe;
+    } else {
+      console.log("Not Found");
+    }
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+app.post("/recipes/recipe/:id", async (req, res) => {
+  try {
+    const recipe = await updateRecipeById(req.params.id, req.body);
+    if (recipe) {
+      res.json(recipe);
+    } else {
+      res.status(500).json({ error: "Recipe not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: `Failed to update recipe error: ${error}` });
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
