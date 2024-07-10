@@ -32,3 +32,31 @@ app.post("./recipes", async (req, res) => {
     res.status(500).json({ error: `Failed to add Recipe` });
   }
 });
+
+const readAllRecipes = async () => {
+  try {
+    const allRecipes = await Recipes.find();
+    return allRecipes;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+app.get("/recipes", async (req, res) => {
+  try {
+    const recipes = await readAllRecipes();
+    if (recipes.length > 0) {
+      res.status(200).json({ message: "Recipes", recipes: recipes });
+    } else {
+      res.status(404).json({ error: "Recipes not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: `Failed to get Recipes ${error}` });
+  }
+});
+
+const PORT = 4000;
+app.listen(PORT, () => {
+  console.log(`Server running on port: ${PORT}`);
+});
