@@ -138,6 +138,29 @@ app.get("/books/release/:year", async (req, res) => {
     res.status(500).json({ error: `Failed to get books: ${error}` });
   }
 });
+const updateBookRating = async (bookId, dataToUpdate) => {
+  try {
+    const books = await Books.findByIdAndUpdate(bookId, dataToUpdate, {
+      new: true,
+    });
+    return books;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+app.post("/books/:bookId", async (req, res) => {
+  try {
+    const book = await updateBookRating(req.params.bookId, req.body);
+    if (book) {
+      res.json(book);
+    } else {
+      res.status(200).json({ error: "Failed to get Books" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: `Failed to get books ${error}` });
+  }
+});
 
 const PORT = 4000;
 
