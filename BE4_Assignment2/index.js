@@ -29,7 +29,7 @@ app.post("/recipes", async (req, res) => {
       res.status(404).json({ error: "Recipe not Found" });
     }
   } catch (error) {
-    res.status(500).json({ error: `Failed to add Recipe` });
+    res.status(500).json({ error: `Failed to add Recipe ${error}` });
   }
 });
 

@@ -37,7 +37,7 @@ const recipeSchema = new mongoose.Schema(
       },
     ],
     imageUrl: {
-      type: Number,
+      type: String,
       required: true,
     },
   },
