@@ -59,14 +59,18 @@ app.get("/recipes", async (req, res) => {
 const getRecipeByTitle = async (title) => {
   try {
     const recipe = await Recipes.findOne({ title: title });
-    return recipe;
+    if (recipe) {
+      return recipe;
+    } else {
+      console.log("not found");
+    }
   } catch (error) {
     console.log(error);
     throw error;
   }
 };
 
-app.get("recipe/:title", async (req, res) => {
+app.get("/recipes/:title", async (req, res) => {
   try {
     const recipe = await getRecipeByTitle(req.params.title);
     if (recipe) {
