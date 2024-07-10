@@ -83,6 +83,33 @@ app.get("/recipes/:title", async (req, res) => {
   }
 });
 
+const getRecipesByAuthor = async (author) => {
+  try {
+    const recipes = await Recipes.find({ author: author });
+    if (recipes) {
+      return recipes;
+    } else {
+      console.log("not found");
+    }
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+app.get("/recipes/authors/:authorName", async (req, res) => {
+  try {
+    const recipes = await getRecipesByAuthor(req.params.authorName);
+    if (recipes.length > 0) {
+      res.json(recipes);
+    } else {
+      res.status(200).json({ error: "Recipe not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: `Failed to get recipes error: ${error} ` });
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
