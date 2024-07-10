@@ -18,7 +18,7 @@ const createRecipe = async (recipe) => {
   }
 };
 
-app.post("./recipes", async (req, res) => {
+app.post("/recipes", async (req, res) => {
   try {
     const savedData = await createRecipe(req.body);
     if (savedData) {
