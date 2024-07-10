@@ -124,9 +124,10 @@ const getAllRecipesByDifficulty = async (level) => {
   }
 };
 
-app.get("/recipes/difficulties/level", async (req, res) => {
+app.get("/recipes/difficulty/:level", async (req, res) => {
   try {
-    const recipes = await getAllRecipesByDifficulty(req, params.level);
+    const recipes = await getAllRecipesByDifficulty(req.params.level);
+
     if (recipes.length > 0) {
       res.json(recipes);
     } else {
