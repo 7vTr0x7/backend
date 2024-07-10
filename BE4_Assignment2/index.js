@@ -181,7 +181,7 @@ const updateRecipeTime = async (title, dataToUpdate) => {
   }
 };
 
-app.post("/recipes/details/title", async (req, res) => {
+app.post("/recipes/details/:title", async (req, res) => {
   try {
     const recipe = await updateRecipeTime(req.params.title, req.body);
     if (recipe) {
