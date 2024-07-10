@@ -194,6 +194,31 @@ app.post("/recipes/details/:title", async (req, res) => {
   }
 });
 
+const deleteRecipe = async (id) => {
+  try {
+    const deletedRecipe = await Recipes.findByIdAndDelete(id);
+    return deletedRecipe;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+app.delete("/recipes/:id", async (req, res) => {
+  try {
+    const deletedRecipe = await deleteRecipe(req.params.id);
+    if (deletedRecipe) {
+      res
+        .status(200)
+        .json({
+          message: "Recipe deleted Successfully",
+          recipe: deletedRecipe,
+        });
+    }
+  } catch (error) {
+    res.status(500).json({ error: `Failed to delete recipe` });
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
