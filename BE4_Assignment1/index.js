@@ -162,6 +162,36 @@ app.post("/books/:bookId", async (req, res) => {
   }
 });
 
+const updateRatingByTitle = async (bookTitle, dataToUpdate) => {
+  try {
+    const updatedBook = await Books.findOneAndUpdate(
+      { title: bookTitle },
+      dataToUpdate,
+      {
+        new: true,
+      }
+    );
+    if (updatedBook) {
+      return updatedBook;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+app.post("/books/book/:title", async (req, res) => {
+  try {
+    const updatedBook = await updateRatingByTitle(req.params.title, req.body);
+    if (updatedBook) {
+      res.json(updatedBook);
+    } else {
+      res.status(404).json({ error: "Book not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: `Failed to update : ${error}` });
+  }
+});
+
 const PORT = 4000;
 
 app.listen(PORT, () => {
