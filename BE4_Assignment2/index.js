@@ -167,6 +167,33 @@ app.post("/recipes/recipe/:id", async (req, res) => {
   }
 });
 
+const updateRecipeTime = async (title, dataToUpdate) => {
+  try {
+    const recipe = await Recipes.findOneAndUpdate(
+      { title: title },
+      dataToUpdate,
+      { new: true }
+    );
+    return recipe;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+app.post("/recipes/details/title", async (req, res) => {
+  try {
+    const recipe = await updateRecipeTime(req.params.title, req.body);
+    if (recipe) {
+      res.json(recipe);
+    } else {
+      res.status(404).json({ error: "Recipe not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: `Failed to update error: ${error}` });
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
